@@ -6,37 +6,38 @@ const $ = require("jquery");
 // jquery plugin for html5 drag and drop sorting
 const sortable = require("sortablejs");
 
-var newListItem;
-var newList = true;
 var theList = $("#todo-list");
 var theInput = $("#toDoItem");
+var hasAlert = false;
 
-// checkInput function() {
-//   // check if input has received text
-// }
+function checkListInput(){
+  var inputValLength = theInput.val().length;
+  return inputValLength;
+}
 
-// buildListItem function (text) {
-//   return "<li>" + text + "</li>";
-// }
+function buildListItem() {
+  var inputText = $(theInput).val();
+  var buildItem = "<li>" + inputText + "</li>";
+  theList.append(buildItem);
+  theInput.val("");
+}
 
-// event listener for adding new to-dos to list
-
-$("#addToDo").click(function(e){
+var addItemEvent = $("#addToDo").click(function(e){
   e.preventDefault();
-  var inputText = $(theInput).text();
-  var buildListItem = "<li>" + inputText + "</li>";
-  console.log(buildListItem);
+  if (checkListInput() > 0 && hasAlert === true) {
+    $("#input-alert").remove();
+    buildListItem();
+    hasAlert = false;
+  } else if (checkListInput() === 0 && hasAlert === true) {
+    hasAlert = true;
+    $("#input-alert").text("Sorry mate, try again.");
+  } else if (checkListInput() > 0) {
+    buildListItem();
+  } else {
+    hasAlert = true;
+    $("#listForm").append("<p id=input-alert>Please add your todo to the input field above.</p>");
+  }
 });
 
+exports.addItemEvent = addItemEvent;
 
-// exports.theList = theList;
-
-
-// module.exports = {
-//     myBurger: function(favBurg) {
-//       return "My favourite burg is the " + favBurg + "!";
-//     },
-//     myPizza: function(favZa) {
-//       return "My favourite Za is the " + favZa + "!";
-//     }
-// }

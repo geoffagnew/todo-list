@@ -24,7 +24,7 @@ var jsSources = [
 
 // Js linter
 gulp.task('linter', function(){
-  return gulp.src(jsSources)
+  return gulp.src('components/scripts/*.js')
     .pipe(eslint({
         rules: {
             'semi': ['error', 'always'],
