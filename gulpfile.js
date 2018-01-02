@@ -15,10 +15,10 @@ var gulp = require('gulp'),
     sass = require('gulp-sass');
 
 // Js source files
-var jsSources = [
-  'components/scripts/main.js',
-  'components/scripts/sort.js'
-];
+// var jsSources = [
+//   'components/scripts/main.js',
+//   'components/scripts/sort.js'
+// ];
 
 // --------------------- Development tasks
 
@@ -133,7 +133,7 @@ gulp.task('minify', ['minifyHtml', 'minifyJs', 'minifyCss', 'minifyJson', 'copyI
 // --------------------- Watch tasks
 
 gulp.task('watch', function() {
-  gulp.watch([jsSources], ['linter']);
+  gulp.watch(['components/scripts/*.js'], ['linter']);
   gulp.watch(['builds/development/*.html'], ['html']);
   gulp.watch(['components/scss/*.scss'], ['sass']);
 });
