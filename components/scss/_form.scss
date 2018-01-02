@@ -1,24 +1,40 @@
 body {
   background:blue;
-  #list-wrapper {
-    background:white;
-    width:60%;
-    margin:50px auto 0;
-    padding:25px;
-    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.4);
-    h1 {
-      text-align:center;
+}
+
+#list-wrapper {
+  background:white;
+  width:60%;
+  margin:50px auto 0;
+  padding:25px;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.4);
+  h1 {
+    text-align:center;
+  }
+  form {
+    input#toDoItem {
+      padding:10px;
+      width:40%;
+      font-size:16px;
     }
-    ul {
-      padding-left:0;
-      border-bottom:1px solid $grey-light;
-      li {
-        list-style:none;
-        border:1px solid $grey-light;
-        border-bottom:none;
-        background:$grey-xlight;
-        padding:20px;
-      }
+    input#addToDo {
+      font-size:20px;
+    }
+  }
+  ul {
+    padding-left:0;
+    border-bottom:1px solid $grey-light;
+    li {
+      list-style:none;
+      border:1px solid $grey-light;
+      border-bottom:none;
+      background:$grey-xlight;
+      padding:20px;
     }
   }
 }
+
+.hide {
+  display:none;
+}
+
