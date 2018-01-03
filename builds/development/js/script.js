@@ -29,9 +29,11 @@ var $ = require("jquery");
 var sortable = require("sortablejs");
 
 var theList = $("#todo-list");
+var sortContainer = document.getElementById("todo-list"); // this is a dupe of the above. should consolidate
 var theInput = $("#toDoItem");
-var hasAlert = false;
 var clearBtn = $("#clear-all");
+var sortIt = sortable.create(sortContainer);
+var hasAlert = false;
 
 function checkListInput() {
   var inputValLength = theInput.val().length;

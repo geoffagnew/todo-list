@@ -6,10 +6,12 @@ const $ = require("jquery");
 // jquery plugin for html5 drag and drop sorting
 const sortable = require("sortablejs");
 
-var theList = $("#todo-list");
-var theInput = $("#toDoItem");
-var hasAlert = false;
+const theList = $("#todo-list");
+const sortContainer = document.getElementById("todo-list"); // this is a dupe of the above. should consolidate
+const theInput = $("#toDoItem");
 const clearBtn = $("#clear-all");
+var sortIt = sortable.create(sortContainer);
+var hasAlert = false;
 
 function checkListInput() {
   var inputValLength = theInput.val().length;
@@ -59,7 +61,6 @@ var clearList = $(clearBtn).click(function(e) {
     theList.children().remove();
   }
 });
-
 
 exports.addItemEvent = addItemEvent;
 exports.clearList = clearList;
