@@ -9,7 +9,9 @@ const sort = require("./sort");
 
 $(document).ready(function(){
 
-  // event listener for adding todos
+  // event for adding todos
   sort.addItemEvent;
+  // event for clearing list
+  sort.clearList;
 
 });

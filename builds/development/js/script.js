@@ -11,8 +11,10 @@ var sort = require("./sort");
 
 $(document).ready(function () {
 
-  // event listener for adding todos
+  // event for adding todos
   sort.addItemEvent;
+  // event for clearing list
+  sort.clearList;
 });
 
 },{"./sort":2,"jquery":3}],2:[function(require,module,exports){
@@ -69,8 +71,15 @@ var addItemEvent = $("#addToDo").click(function (e) {
 // click event for clear all list
 var clearList = $(clearBtn).click(function (e) {
   e.preventDefault();
-  clearBtn.addClass("hide");
-  theList.children().remove();
+  if (checkListInput() === 0 && hasAlert === true) {
+    clearBtn.addClass("hide");
+    theList.children().remove();
+    $("#input-alert").remove();
+    hasAlert = false;
+  } else {
+    clearBtn.addClass("hide");
+    theList.children().remove();
+  }
 });
 
 exports.addItemEvent = addItemEvent;

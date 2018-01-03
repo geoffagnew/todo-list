@@ -44,15 +44,22 @@ var addItemEvent = $("#addToDo").click(function(e){
     hasAlert = true;
     $("#listForm").append("<p id=input-alert>Please add your todo to the input field above.</p>");
   }
-
 });
 
 // click event for clear all list
 var clearList = $(clearBtn).click(function(e) {
   e.preventDefault();
-  clearBtn.addClass("hide");
-  theList.children().remove();
+  if (checkListInput() === 0 && hasAlert === true) {
+    clearBtn.addClass("hide");
+    theList.children().remove();
+    $("#input-alert").remove();
+    hasAlert = false;
+  } else {
+    clearBtn.addClass("hide");
+    theList.children().remove();
+  }
 });
+
 
 exports.addItemEvent = addItemEvent;
 exports.clearList = clearList;
