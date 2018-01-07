@@ -6,7 +6,6 @@ const $ = require("jquery");
 // js for drag and drop functionality
 const sort = require("./sort");
 
-
 $(document).ready(function(){
 
   // event for adding todos
