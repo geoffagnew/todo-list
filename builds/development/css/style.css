@@ -22,11 +22,19 @@ body {
     padding-left: 0;
     border-bottom: 1px solid #dddddd; }
     #list-wrapper ul li {
+      position: relative;
       list-style: none;
       border: 1px solid #dddddd;
       border-bottom: none;
       background: #f4f4f4;
       padding: 20px; }
+      #list-wrapper ul li .removeListItem {
+        position: absolute;
+        display: block;
+        padding: 10px;
+        right: 20px;
+        top: 10px;
+        cursor: pointer; }
 
 .hide {
   display: none; }

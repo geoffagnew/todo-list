@@ -25,11 +25,20 @@ body {
     padding-left:0;
     border-bottom:1px solid $grey-light;
     li {
+      position:relative;
       list-style:none;
       border:1px solid $grey-light;
       border-bottom:none;
       background:$grey-xlight;
       padding:20px;
+      .removeListItem {
+        position:absolute;
+        display:block;
+        padding:10px;
+        right:20px;
+        top:10px;
+        cursor:pointer;
+      }
     }
   }
 }

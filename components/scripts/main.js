@@ -11,6 +11,8 @@ $(document).ready(function(){
 
   // event for adding todos
   sort.addItemEvent;
+  // event for removing todos
+  sort.removeItem;
   // event for clearing list
   sort.clearList;
 

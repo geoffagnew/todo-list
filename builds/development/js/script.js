@@ -13,6 +13,8 @@ $(document).ready(function () {
 
   // event for adding todos
   sort.addItemEvent;
+  // event for removing todos
+  sort.removeItem;
   // event for clearing list
   sort.clearList;
 });
@@ -25,7 +27,7 @@ $(document).ready(function () {
 var $ = require("jquery");
 
 // -------------------------- Plugins
-// jquery plugin for html5 drag and drop sorting
+// plugin for html5 drag and drop sorting
 var sortable = require("sortablejs");
 
 var theList = $("#todo-list");
@@ -42,7 +44,7 @@ function checkListInput() {
 
 function buildListItem() {
   var inputText = $(theInput).val();
-  var buildItem = "<li>" + inputText + "</li>";
+  var buildItem = "<li><span class=\"handle\">::</span> &nbsp; " + inputText + " &nbsp; <span class=\"removeListItem\">x</span></li>";
   theList.append(buildItem);
   theInput.val("");
 }
@@ -70,6 +72,14 @@ var addItemEvent = $("#addToDo").click(function (e) {
   }
 });
 
+// click event for removing list item
+var removeItem = $(theList).click(function (e) {
+  var target = $(e.target);
+  if (target.is("li span.removeListItem")) {
+    target.parent().remove();
+  }
+});
+
 // click event for clear all list
 var clearList = $(clearBtn).click(function (e) {
   e.preventDefault();
@@ -85,6 +95,7 @@ var clearList = $(clearBtn).click(function (e) {
 });
 
 exports.addItemEvent = addItemEvent;
+exports.removeItem = removeItem;
 exports.clearList = clearList;
 
 },{"jquery":3,"sortablejs":4}],3:[function(require,module,exports){
