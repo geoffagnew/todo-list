@@ -1,7 +1,13 @@
+// load jquery
+const $ = require("jquery");
+
 // function to check if existing data has been saved in localStorage from previous visits
-exports.loadToDo = function() {
+function loadToDo() {
   if (localStorage.getItem("savedList")) {
-    theList.html(localStorage.getItem("savedList"));
+    $("#todo-list").html(localStorage.getItem("savedList"));
+    $("#clear-all").removeClass("hide");
   }
 };
+
+module.exports = loadToDo;
 

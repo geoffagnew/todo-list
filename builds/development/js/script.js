@@ -1,56 +1,26 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-// ------------------------------------------- Libraries
-// load jquery
-var $ = require("jquery");
-
-// ------------------------------------------- Imports
-// js for drag and drop functionality
-var sort = require("./sort");
-
-$(document).ready(function () {
-
-  // event for adding todos
-  sort.addItemEvent;
-  // event for removing todos
-  sort.removeItem;
-  // event for clearing list
-  sort.clearList;
-});
-
-},{"./sort":2,"jquery":3}],2:[function(require,module,exports){
-"use strict";
-
 // -------------------------- Libraries
 // load jquery
 var $ = require("jquery");
 
 // -------------------------- Plugins
-// plugin for html5 drag and drop sorting
-var sortable = require("sortablejs");
+var sortable = require("sortablejs"); // plugin for html5 drag and drop sorting
 
+// -------------------------- Variables
 var theList = $("#todo-list");
 var sortContainer = document.getElementById("todo-list"); // this is a dupe of the above. should consolidate
 var theInput = $("#toDoItem");
 var clearBtn = $("#clear-all");
 var hasAlert = false;
+
 // initiate the sortable plugin
 var sortIt = sortable.create(sortContainer, {
   onEnd: function onEnd(evt) {
     localStorage.setItem("savedList", theList.html());
   }
 });
-
-// function to check if existing data has been saved in localStorage from previous visits
-function loadToDo() {
-  if (localStorage.getItem("savedList")) {
-    theList.html(localStorage.getItem("savedList"));
-  }
-}
-
-// call the function to check if existing data has been saved
-loadToDo();
 
 // Check to see if anything has been typed into the input field
 function checkListInput() {
@@ -66,7 +36,7 @@ function buildListItem() {
 }
 
 // click event for adding new items to the list
-var addItemEvent = $("#addToDo").click(function (e) {
+$("#addToDo").click(function (e) {
 
   e.preventDefault();
   var listLength = $(theList).children().length;
@@ -86,12 +56,11 @@ var addItemEvent = $("#addToDo").click(function (e) {
     hasAlert = true;
     $("#listForm").append("<p id=input-alert>Please add your todo to the input field above.</p>");
   }
-
   localStorage.setItem("savedList", theList.html());
 });
 
 // click event for removing list item
-var removeItem = $(theList).click(function (e) {
+$(theList).click(function (e) {
   var target = $(e.target);
   if (target.is("li span.removeListItem")) {
     target.parent().remove();
@@ -99,14 +68,25 @@ var removeItem = $(theList).click(function (e) {
   }
 });
 
-// event listener for the saveall button
+// listener event for the editing list item inline
+$(theList).focusout(function (e) {
+  e.preventDefault();
+  var target = $(e.target);
+  var currentVal = target.val();
+  if (target.is("input")) {
+    target.attr("value", currentVal);
+    localStorage.setItem("savedList", theList.html());
+  }
+});
+
+// click event for the saveall button
 $("#save-all").on("click", function (e) {
   e.preventDefault();
   localStorage.setItem("savedList", theList.html());
 });
 
 // click event for clear all list
-var clearList = $(clearBtn).click(function (e) {
+$(clearBtn).click(function (e) {
   e.preventDefault();
   if (checkListInput() === 0 && hasAlert === true) {
     clearBtn.addClass("hide");
@@ -120,11 +100,42 @@ var clearList = $(clearBtn).click(function (e) {
   }
 });
 
-exports.addItemEvent = addItemEvent;
-exports.removeItem = removeItem;
-exports.clearList = clearList;
+},{"jquery":4,"sortablejs":5}],2:[function(require,module,exports){
+"use strict";
 
-},{"jquery":3,"sortablejs":4}],3:[function(require,module,exports){
+// load jquery
+var $ = require("jquery");
+
+// function to check if existing data has been saved in localStorage from previous visits
+function loadToDo() {
+  if (localStorage.getItem("savedList")) {
+    $("#todo-list").html(localStorage.getItem("savedList"));
+    $("#clear-all").removeClass("hide");
+  }
+};
+
+module.exports = loadToDo;
+
+},{"jquery":4}],3:[function(require,module,exports){
+"use strict";
+
+// ------------------------------------------- Libraries
+// load jquery
+var $ = require("jquery");
+
+$(document).ready(function () {
+
+  // ------------------------------------------- Imports
+  // js for localStorage
+  var loadToDo = require("./local-storage");
+  // js for list management
+  var listActions = require("./list-actions");
+
+  // call function to check if existing list data has been saved
+  loadToDo();
+});
+
+},{"./list-actions":1,"./local-storage":2,"jquery":4}],4:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -10379,7 +10390,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /**!
  * Sortable
  * @author	RubaXa   <trash@rubaxa.org>
@@ -11921,4 +11932,4 @@ return jQuery;
 	return Sortable;
 });
 
-},{}]},{},[1]);
+},{}]},{},[3]);
