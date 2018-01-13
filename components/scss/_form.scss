@@ -25,12 +25,26 @@ body {
     padding-left:0;
     border-bottom:1px solid $grey-light;
     li {
-      position:relative;
       list-style:none;
       border:1px solid $grey-light;
       border-bottom:none;
       background:$grey-xlight;
-      padding:20px;
+      display:flex;
+      flex-direction:row;
+      .handle {
+        width:2%;
+        padding:20px;
+        border-right:1px solid $grey-light;
+      }
+      .item-content {
+        width:96%;
+        padding:20px;
+      }
+      .removeListItem {
+        width:2%;
+        padding:20px;
+        border-left:1px solid $grey-light;
+      }
       input {
         background:none;
         border:none;
@@ -38,12 +52,10 @@ body {
         width:80%;
       }
       .removeListItem {
-        position:absolute;
-        display:block;
-        padding:10px;
-        right:20px;
-        top:10px;
         cursor:pointer;
+      }
+      &.active-edit .item-content {
+        background: $white;
       }
     }
   }

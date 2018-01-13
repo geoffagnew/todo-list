@@ -35,11 +35,11 @@ function sanitizeInput(val) {
   return cleanInput;
 }
 
+// sanitize inout and build list item
 function buildListItem() {
   var inputText = $(theInput).val();
   var cleanText = sanitizeInput(inputText);
-  var buildItem = "<li><span class=\"handle\">::</span> &nbsp; <input type=\"text\" value=\"" + cleanText + "\"> &nbsp; <span class=\"removeListItem\">x</span></li>";
-  // var buildItem = `<li><span class="handle">::</span> &nbsp; ${cleanText} &nbsp; <span class="removeListItem">x</span></li>`;
+  var buildItem = "<li><span class=\"handle\">::</span><span class=\"item-content\">" + cleanText + "</span><span class=\"removeListItem\">x</span></li>";
   theList.append(buildItem);
   theInput.val("");
 }
@@ -77,17 +77,44 @@ $(theList).click(function (e) {
   }
 });
 
-// listener event for the editing list item inline
-$(theList).focusout(function (e) {
+// listener for editing a list item
+$(theList).click(function (e) {
   e.preventDefault();
+  // get the text from the clicked li
   var target = $(e.target);
-  var currentVal = target.val();
-  var cleanText = sanitizeInput(currentVal);
-  if (target.is("input")) {
-    target.attr("value", cleanText);
-    localStorage.setItem("savedList", theList.html());
+  // if span.item-content was the element clicked
+  if (target.is("span.item-content")) {
+    target.parent().addClass("active-edit");
+    // get the original text from the list item
+    var origText = target.text();
+    // create a temporary input field to show while user is editing item
+    var tempInput = "<input class=\"item-content\" type=\"text\" value=\"" + origText + "\">";
+    // temporarily replace span.item-content with tempInput
+    target.replaceWith(tempInput);
+    // focus cursor to beginning of input
+    $(".item-content").focus();
+    // fire focus out event listener
+    $(".item-content").focusout(function (e) {
+      var newVal = $(this).val();
+      var cleanText = sanitizeInput(newVal);
+      var newOutput = "<span class=\"item-content\">" + cleanText + "</span>";
+      $(this).parent().removeClass("active-edit");
+      $(this).replaceWith(newOutput);
+    });
   }
 });
+
+// listener event for the editing list item inline
+// $(theList).focusout(function(e) {
+//   e.preventDefault();
+//   var target = $(e.target);
+//   var currentVal = target.val();
+//   var cleanText = sanitizeInput(currentVal);
+//   if (target.is("input")) {
+//     target.attr("value", cleanText);
+//     localStorage.setItem("savedList", theList.html());
+//   }
+// });
 
 // click event for the saveall button
 $("#save-all").on("click", function (e) {

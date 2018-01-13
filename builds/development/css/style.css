@@ -22,24 +22,32 @@ body {
     padding-left: 0;
     border-bottom: 1px solid #dddddd; }
     #list-wrapper ul li {
-      position: relative;
       list-style: none;
       border: 1px solid #dddddd;
       border-bottom: none;
       background: #f4f4f4;
-      padding: 20px; }
+      display: flex;
+      flex-direction: row; }
+      #list-wrapper ul li .handle {
+        width: 2%;
+        padding: 20px;
+        border-right: 1px solid #dddddd; }
+      #list-wrapper ul li .item-content {
+        width: 96%;
+        padding: 20px; }
+      #list-wrapper ul li .removeListItem {
+        width: 2%;
+        padding: 20px;
+        border-left: 1px solid #dddddd; }
       #list-wrapper ul li input {
         background: none;
         border: none;
         font-size: 15px;
         width: 80%; }
       #list-wrapper ul li .removeListItem {
-        position: absolute;
-        display: block;
-        padding: 10px;
-        right: 20px;
-        top: 10px;
         cursor: pointer; }
+      #list-wrapper ul li.active-edit .item-content {
+        background: #ffffff; }
 
 .hide {
   display: none; }
