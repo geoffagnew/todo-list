@@ -1,6 +1,7 @@
 // -------------------------- Libraries
 // load jquery
 const $ = require("jquery");
+const DOMPurify = require("dompurify");
 
 // -------------------------- Plugins
 const sortable = require("sortablejs"); // plugin for html5 drag and drop sorting
@@ -25,9 +26,17 @@ function checkListInput() {
   return inputValLength;
 }
 
+// sanitize form input
+function sanitizeInput(val) {
+  var cleanInput = DOMPurify.sanitize(val, {SAFE_FOR_JQUERY: true});
+  return cleanInput;
+}
+
 function buildListItem() {
   var inputText = $(theInput).val();
-  var buildItem = `<li><span class="handle">::</span> &nbsp; <input type="text" value="${inputText}"> &nbsp; <span class="removeListItem">x</span></li>`;
+  var cleanText = sanitizeInput(inputText);
+  var buildItem = `<li><span class="handle">::</span> &nbsp; <input type="text" value="${cleanText}"> &nbsp; <span class="removeListItem">x</span></li>`;
+  // var buildItem = `<li><span class="handle">::</span> &nbsp; ${cleanText} &nbsp; <span class="removeListItem">x</span></li>`;
   theList.append(buildItem);
   theInput.val("");
 }
@@ -70,8 +79,9 @@ $(theList).focusout(function(e) {
   e.preventDefault();
   var target = $(e.target);
   var currentVal = target.val();
+  var cleanText = sanitizeInput(currentVal);
   if (target.is("input")) {
-    target.attr("value", currentVal);
+    target.attr("value", cleanText);
     localStorage.setItem("savedList", theList.html());
   }
 });
