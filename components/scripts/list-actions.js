@@ -76,13 +76,21 @@ $(theList).click(function(e) {
   }
 });
 
-// listener event for the editing list item inline
+// listener event for initiating list item editing
+$(theList).focusin(function(e) {
+  e.preventDefault();
+  var target = $(e.target);
+  target.parent().addClass("active-edit");
+});
+
+// listener event for completion of editing list item
 $(theList).focusout(function(e) {
   e.preventDefault();
   var target = $(e.target);
-  var currentVal = target.val();
-  var cleanText = sanitizeInput(currentVal);
-  if (target.is("input")) {
+  if (target.is(".item-content")) {
+    var currentVal = target.val();
+    var cleanText = sanitizeInput(currentVal);
+    target.parent().removeClass("active-edit");
     target.attr("value", cleanText);
     localStorage.setItem("savedList", theList.html());
   }
