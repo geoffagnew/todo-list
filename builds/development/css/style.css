@@ -72,21 +72,21 @@ body {
   -ms-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #eab53a;
-  width: 60%;
+  width: 50%;
   margin: 50px auto 0;
   padding: 50px 50px 50px;
   box-shadow: 0 10px 25px rgba(158, 109, 12, 0.4), 0 20px 15px rgba(255, 200, 87, 0.05); }
   #list-wrapper form#listForm {
-    padding-bottom: 30px;
     display: block; }
     #list-wrapper form#listForm input#toDoItem {
       padding: 0 10px;
-      width: 40%;
+      width: 75%;
       font-size: 16px;
       min-height: 38px; }
     #list-wrapper form#listForm input#addToDo {
       position: relative;
-      left: -4px;
+      width: 20%;
+      left: -5px;
       font-size: 20px;
       background: #1c2733;
       border: 1px solid #1c2733;
@@ -105,8 +105,7 @@ body {
       border-top-left-radius: 0; }
   #list-wrapper ul {
     padding-left: 0;
-    display: block;
-    padding-bottom: 40px; }
+    display: block; }
     #list-wrapper ul li {
       list-style: none;
       border: 1px solid #dddddd;
@@ -136,6 +135,12 @@ body {
         background: #ffffff; }
       #list-wrapper ul li:last-child {
         border-bottom: 1px solid #dddddd; }
+    #list-wrapper ul.has-items {
+      padding: 40px 0; }
+
+#input-alert {
+  padding-top: 15px;
+  display: block; }
 
 .btn {
   background: #1c2733;
