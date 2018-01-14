@@ -1,14 +1,26 @@
+html {
+  height:100%;
+}
 body {
-  background:blue;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffc857+0,ffb41e+100 */
+  background: #ffc857; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffc857 0%, #ffb41e 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffc857 0%,#ffb41e 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffc857 0%,#ffb41e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc857', endColorstr='#ffb41e',GradientType=0 ); /* IE6-9 */
+  height:100%;
 }
 
 #list-wrapper {
   background:white;
   @include border-radius(3px);
+  border:1px solid #eab53a;
   width:60%;
   margin:50px auto 0;
   padding:25px 50px 50px;
-  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.4);
+  // box-shadow: 0px 10px 100px rgba(158, 109, 12, 1);
+  box-shadow: 0 10px 25px rgba(158, 109, 12, 0.4),
+    0 20px 15px rgba(255 , 200, 87, .05);
   form {
     input#toDoItem {
       padding:10px;

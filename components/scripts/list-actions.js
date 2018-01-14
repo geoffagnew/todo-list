@@ -12,7 +12,8 @@ const DOMPurify = require("dompurify");
 const theList = $("#todo-list");
 const sortContainer = document.getElementById("todo-list"); // this is a dupe of the above. should consolidate
 const theInput = $("#toDoItem");
-const clearBtn = $("#clear-all");
+const $clearBtn = $("#clear-all");
+const $saveBtn = $("#save-all");
 var hasAlert = false;
 
 // initiate the sortable plugin
@@ -52,14 +53,16 @@ $("#addToDo").click(function(e){
   if (checkListInput() > 0 && hasAlert === true) {
     $("#input-alert").remove();
     buildListItem();
-    clearBtn.removeClass("hide");
+    $clearBtn.removeClass("hide");
+    $saveBtn.removeClass("hide");
     hasAlert = false;
   } else if (checkListInput() === 0 && hasAlert === true) {
     hasAlert = true;
     $("#input-alert").text("Sorry mate, try again.");
   } else if (checkListInput() > 0) {
     buildListItem();
-    clearBtn.removeClass("hide");
+    $clearBtn.removeClass("hide");
+    $saveBtn.removeClass("hide");
   } else {
     hasAlert = true;
     $("#listForm").append("<p id=input-alert>Please add your todo to the input field above.</p>");
@@ -70,8 +73,14 @@ $("#addToDo").click(function(e){
 // click event for removing list item
 $(theList).click(function(e) {
   var target = $(e.target);
-  if (target.is("li span.removeListItem")) {
+  var listLength = theList.children().length;
+  if (target.is("li span.removeListItem") && listLength > 1) {
     target.parent().remove();
+    localStorage.setItem("savedList", theList.html());
+  } else {
+    target.parent().remove();
+    $clearBtn.addClass("hide");
+    $saveBtn.addClass("hide");
     localStorage.setItem("savedList", theList.html());
   }
 });
@@ -97,21 +106,22 @@ $(theList).focusout(function(e) {
 });
 
 // click event for the saveall button
-$("#save-all").on("click", function(e) {
+$($saveBtn).on("click", function(e) {
   e.preventDefault();
   localStorage.setItem("savedList", theList.html());
 });
 
 // click event for clear all list
-$(clearBtn).click(function(e) {
+$($clearBtn).click(function(e) {
   e.preventDefault();
   if (checkListInput() === 0 && hasAlert === true) {
-    clearBtn.addClass("hide");
+    $clearBtn.addClass("hide");
     theList.children().remove();
     $("#input-alert").remove();
     hasAlert = false;
   } else {
-    clearBtn.addClass("hide");
+    $clearBtn.addClass("hide");
+    $saveBtn.addClass("hide");
     theList.children().remove();
     localStorage.setItem("savedList", theList.html());
   }

@@ -6,6 +6,7 @@ function loadToDo() {
   if (localStorage.getItem("savedList")) {
     $("#todo-list").html(localStorage.getItem("savedList"));
     $("#clear-all").removeClass("hide");
+    $("#save-all").removeClass("hide");
   }
 };
 
