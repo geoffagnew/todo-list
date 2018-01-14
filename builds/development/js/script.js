@@ -80,7 +80,7 @@ $(theList).click(function (e) {
   if (target.is("li span.removeListItem") && listLength > 1) {
     target.parent().remove();
     localStorage.setItem("savedList", theList.html());
-  } else {
+  } else if (target.is("li span.removeListItem") && listLength <= 1) {
     target.parent().remove();
     $clearBtn.addClass("hide");
     $saveBtn.addClass("hide");
