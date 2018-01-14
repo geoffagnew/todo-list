@@ -1,10 +1,11 @@
 // -------------------------- Libraries
 // load jquery
 const $ = require("jquery");
-const DOMPurify = require("dompurify");
 
 // -------------------------- Plugins
 const sortable = require("sortablejs"); // plugin for html5 drag and drop sorting
+// load dom purify sanitizer
+const DOMPurify = require("dompurify");
 
 // -------------------------- Variables
 const theList = $("#todo-list");
@@ -32,7 +33,7 @@ function sanitizeInput(val) {
   return cleanInput;
 }
 
-// sanitize inout and build list item
+// sanitize input and build list item
 function buildListItem() {
   var inputText = $(theInput).val();
   var cleanText = sanitizeInput(inputText);
@@ -77,9 +78,9 @@ $(theList).click(function(e) {
 // listener for editing a list item
 $(theList).click(function(e) {
   e.preventDefault();
-  // get the text from the clicked li
+  // get the clicked element
   var target = $(e.target);
-  // if span.item-content was the element clicked
+  // if the element clicked was span.item-content
   if (target.is("span.item-content")) {
     target.parent().addClass("active-edit");
     // get the original text from the list item
@@ -97,6 +98,7 @@ $(theList).click(function(e) {
       var newOutput = `<span class="item-content">${cleanText}</span>`;
       $(this).parent().removeClass("active-edit");
       $(this).replaceWith(newOutput);
+      localStorage.setItem("savedList", theList.html());
     });
   }
 });
